@@ -3,6 +3,9 @@ package com.tw.banking;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -42,6 +45,26 @@ class AccountTest {
         assertAll(
                 ()->verify(transactionRepository,times(1)).addWithdraw(amountCaptor.capture()),
                 ()->assertEquals(amount, amountCaptor.getValue())
+        );
+    }
+
+    @Test
+    void should_printer_call_print_succussful_and_use_correct_Transactions_when_account_call_printStatement_given_Transactions(){
+        //give
+        TransactionRepository transactionRepository = mock(TransactionRepository.class);
+        Printer printer = mock(Printer.class);
+        ArgumentCaptor<List<Transaction>> listArgumentCaptor = ArgumentCaptor.forClass(List.class);
+        Account account =  new Account(transactionRepository,printer);
+        List<Transaction>  transactions = new ArrayList<>();
+        when(transactionRepository.allTransactions()).thenReturn(transactions);
+
+        //when
+        account.printStatement();
+
+        //then
+        assertAll(
+                ()->verify(printer,times(1)).print(listArgumentCaptor.capture()),
+                ()->assertEquals(transactions, listArgumentCaptor.getValue())
         );
     }
 
