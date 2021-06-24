@@ -8,7 +8,7 @@ import static org.mockito.Mockito.*;
 
 class AccountTest {
     @Test
-    void should_account_call_deposit_succussful_and_use_correct_amount_when_account_call_deposit_given_amount(){
+    void should_transactionRepository_call_addDeposit_succussful_and_use_correct_amount_when_account_call_deposit_given_amount(){
         //give
         TransactionRepository transactionRepository = mock(TransactionRepository.class);
         ArgumentCaptor<Integer> amountCaptor = ArgumentCaptor.forClass(Integer.class);
@@ -25,4 +25,5 @@ class AccountTest {
                 ()->assertEquals(amount, amountCaptor.getValue())
         );
     }
+
 }
