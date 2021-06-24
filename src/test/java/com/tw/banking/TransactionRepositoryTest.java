@@ -45,4 +45,22 @@ class TransactionRepositoryTest {
                 ()-> assertEquals(date,transactionRepository.transactions.get(0).date())
         );
     }
+
+    @Test
+    void should_return_allTransactions_when_call_allTransactions_given_transaction(){
+        //given
+        final String date = "2021/6/24";
+        final int amount = 100;
+        Clock clock = new Clock();
+        TransactionRepository transactionRepository = new TransactionRepository(clock);
+        Transaction transaction = new Transaction(date,amount);
+        transactionRepository.transactions.add(transaction);
+
+        //when then
+        assertAll(
+                ()-> assertEquals(date,transactionRepository.allTransactions().get(0).date()),
+                ()-> assertEquals(amount,transactionRepository.allTransactions().get(0).amount())
+        );
+
+    }
 }
