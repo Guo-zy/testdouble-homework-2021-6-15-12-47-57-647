@@ -39,4 +39,22 @@ class PrinterTest {
         verify(console,times(1)).printLine(STATEMENT_HEADER);
     }
 
+    @Test
+    void should_return_statement_of_date_amount_balance_when_call_statmentLine_given_transaction_and_runningBalance(){
+        //given
+        final int runningBalance  = 100;
+        Console console = new Console();
+        Printer printer = new Printer(console);
+
+        //when
+        String actualRes = printer.statementLine(transaction,runningBalance);
+
+        //then
+        assertEquals(transaction.date()
+                + SEPARATOR
+                + transaction.amount()
+                + SEPARATOR
+                + runningBalance,actualRes);
+    }
+
 }
