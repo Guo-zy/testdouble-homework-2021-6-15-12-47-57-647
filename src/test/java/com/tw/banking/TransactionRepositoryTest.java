@@ -25,4 +25,24 @@ class TransactionRepositoryTest {
                 ()-> assertEquals(date,transactionRepository.transactions.get(0).date())
         );
     }
+
+    @Test
+    void should_addWithdraw_successful_when_transactionRepository_call_addWithdraw_given_date_and_amount(){
+        //given
+        final String date = "2021/6/24";
+        final int amount = 100;
+        Clock clock = mock(Clock.class);
+        TransactionRepository transactionRepository = new TransactionRepository(clock);
+        when(clock.todayAsString()).thenReturn(date);
+
+        //when
+        transactionRepository.addWithdraw(amount);
+
+        //then
+        assertAll(
+                ()-> assertEquals(1,transactionRepository.transactions.size()),
+                ()-> assertEquals(-amount,transactionRepository.transactions.get(0).amount()),
+                ()-> assertEquals(date,transactionRepository.transactions.get(0).date())
+        );
+    }
 }
