@@ -6,11 +6,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class TransactionRepositoryTest {
+
+    private final String date = "2021/6/24";
+    private final int amount = 100;
+
     @Test
     void should_addDeposit_successful_when_transactionRepository_call_addDeposit_given_date_and_amount(){
         //given
-        final String date = "2021/6/24";
-        final int amount = 100;
         Clock clock = mock(Clock.class);
         TransactionRepository transactionRepository = new TransactionRepository(clock);
         when(clock.todayAsString()).thenReturn(date);
@@ -29,8 +31,6 @@ class TransactionRepositoryTest {
     @Test
     void should_addWithdraw_successful_when_transactionRepository_call_addWithdraw_given_date_and_amount(){
         //given
-        final String date = "2021/6/24";
-        final int amount = 100;
         Clock clock = mock(Clock.class);
         TransactionRepository transactionRepository = new TransactionRepository(clock);
         when(clock.todayAsString()).thenReturn(date);
@@ -49,8 +49,6 @@ class TransactionRepositoryTest {
     @Test
     void should_return_allTransactions_when_call_allTransactions_given_transaction(){
         //given
-        final String date = "2021/6/24";
-        final int amount = 100;
         Clock clock = new Clock();
         TransactionRepository transactionRepository = new TransactionRepository(clock);
         Transaction transaction = new Transaction(date,amount);
